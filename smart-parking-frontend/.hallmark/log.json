@@ -1,0 +1,19 @@
+[
+  {
+    "date": "2026-09-24",
+    "verb": "audit + fix",
+    "macrostructure": "unchanged (design.md system)",
+    "theme": "Hum",
+    "enrichment": "none",
+    "brief": "Smart Parking · audit of incrementally-added features; consolidated 3 duplicate button implementations onto shared .btn, added missing focus-visible rings, fixed split availability badge",
+    "scope": "app"
+  },
+  {
+    "date": "2026-09-24",
+    "macrostructure": "Marquee Hero (Hum variant, marketing) + Workbench (app pages, reskinned only)",
+    "theme": "Hum",
+    "enrichment": "Tier-A CSS art (scanning plate) + one character mark",
+    "brief": "Smart Parking · full-app redesign, tone: playful",
+    "scope": "app"
+  }
+]

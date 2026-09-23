@@ -1,0 +1,5 @@
+fast-alpr[onnx]
+opencv-python-headless
+fastapi
+uvicorn[standard]
+python-multipart

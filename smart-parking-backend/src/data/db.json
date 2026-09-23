@@ -1,0 +1,222 @@
+{
+  "zones": [
+    {
+      "id": "z1",
+      "areaId": "a1",
+      "name": "MG Road Zone",
+      "lat": 18.5204,
+      "lng": 73.8567
+    },
+    {
+      "id": "z2",
+      "areaId": "a1",
+      "name": "FC Road Zone",
+      "lat": 18.5236,
+      "lng": 73.8478
+    },
+    {
+      "id": "82ab611c-42e0-4e69-93d7-326dc6f2ee81",
+      "areaId": "admin-added",
+      "name": "Nandur naka parking",
+      "lat": 19.99449384307371,
+      "lng": 73.84441673755647
+    },
+    {
+      "id": "a603ea79-09fa-4da7-977b-4a26c362ae7b",
+      "areaId": "admin-added",
+      "name": "test",
+      "lat": 19.992671154747832,
+      "lng": 73.84430408477785
+    },
+    {
+      "id": "db2139dd-e171-47f6-8744-7858bdf716ce",
+      "areaId": "admin-added",
+      "name": "new parking",
+      "lat": 19.997951907383708,
+      "lng": 73.8390066265418
+    }
+  ],
+  "lots": [
+    {
+      "id": "l1",
+      "zoneId": "z1",
+      "name": "MG Road Lot A",
+      "totalSpaces": 200
+    },
+    {
+      "id": "l2",
+      "zoneId": "z2",
+      "name": "FC Road Lot A",
+      "totalSpaces": 200
+    },
+    {
+      "id": "9e6d3f2a-2f0e-4c1a-9b7e-9a2f7a5b9d01",
+      "zoneId": "82ab611c-42e0-4e69-93d7-326dc6f2ee81",
+      "name": "Nandur naka parking Lot",
+      "totalSpaces": 50
+    },
+    {
+      "id": "9e6d3f2a-2f0e-4c1a-9b7e-9a2f7a5b9d02",
+      "zoneId": "a603ea79-09fa-4da7-977b-4a26c362ae7b",
+      "name": "test Lot",
+      "totalSpaces": 50
+    },
+    {
+      "id": "9e6d3f2a-2f0e-4c1a-9b7e-9a2f7a5b9d03",
+      "zoneId": "db2139dd-e171-47f6-8744-7858bdf716ce",
+      "name": "new parking Lot",
+      "totalSpaces": 100
+    }
+  ],
+  "allocations": [
+    {
+      "id": "b6954aab-51ee-447c-a51f-d97636b918b1",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 1,
+      "plateNumber": "TT15HN7922",
+      "status": "vacated",
+      "entryTime": "2026-09-19T15:34:36.004Z",
+      "exitTime": "2026-09-23T20:03:19.227Z"
+    },
+    {
+      "id": "a554b7db-2a63-47da-ab4c-2db4433d9037",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 2,
+      "plateNumber": "IH15HN7922",
+      "status": "vacated",
+      "entryTime": "2026-09-19T15:38:08.247Z",
+      "exitTime": "2026-09-19T15:38:34.162Z"
+    },
+    {
+      "id": "98af2553-143e-4c3d-bcdf-7c7f0989f255",
+      "lotId": "l2",
+      "zoneId": "z2",
+      "spaceNumber": 1,
+      "plateNumber": "MH15HN7922",
+      "status": "vacated",
+      "entryTime": "2026-09-19T15:51:57.132Z",
+      "exitTime": "2026-09-19T15:58:07.069Z"
+    },
+    {
+      "id": "bad86c80-0362-4bee-ba55-b814a3c18a5d",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 2,
+      "plateNumber": "IH15HN7922",
+      "status": "vacated",
+      "entryTime": "2026-09-19T15:52:08.994Z",
+      "exitTime": "2026-09-23T20:03:26.414Z"
+    },
+    {
+      "id": "519530aa-98ef-4e11-8594-b312f5393cef",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 3,
+      "plateNumber": "MH15HN7922",
+      "status": "vacated",
+      "entryTime": "2026-09-19T15:58:12.843Z",
+      "exitTime": "2026-09-19T15:59:14.845Z"
+    },
+    {
+      "id": "04e52acf-ba27-450a-ad53-813406c5c70f",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 3,
+      "plateNumber": "MH15HN7922",
+      "status": "vacated",
+      "entryTime": "2026-09-21T19:13:28.587Z",
+      "exitTime": "2026-09-23T19:38:24.311Z"
+    },
+    {
+      "id": "1e6181fe-7b39-403a-8729-77a901306ac8",
+      "lotId": "9e6d3f2a-2f0e-4c1a-9b7e-9a2f7a5b9d01",
+      "zoneId": "82ab611c-42e0-4e69-93d7-326dc6f2ee81",
+      "spaceNumber": 1,
+      "plateNumber": "MH12 AB1234",
+      "status": "vacated",
+      "entryTime": "2026-09-23T19:38:09.480Z",
+      "exitTime": "2026-09-23T19:38:37.959Z"
+    },
+    {
+      "id": "a2c52f62-160a-468b-97d6-b604ea4e719c",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 3,
+      "plateNumber": "MH15HN792",
+      "status": "vacated",
+      "entryTime": "2026-09-23T19:52:55.226Z",
+      "exitTime": "2026-09-23T20:03:27.332Z"
+    },
+    {
+      "id": "0bd062b2-224e-46ed-805e-70f7f6da462a",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 4,
+      "plateNumber": "MH15HN7922",
+      "status": "vacated",
+      "entryTime": "2026-09-23T19:53:25.160Z",
+      "exitTime": "2026-09-23T20:03:27.771Z"
+    },
+    {
+      "id": "282795b5-5b32-420e-a066-8547d0cf4244",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 5,
+      "plateNumber": "MH15HNN792",
+      "status": "vacated",
+      "entryTime": "2026-09-23T19:53:44.456Z",
+      "exitTime": "2026-09-23T20:03:28.139Z"
+    },
+    {
+      "id": "de673fa0-e63e-4f5f-ad35-8e03d9eb4995",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 6,
+      "plateNumber": "M115HN7922",
+      "status": "vacated",
+      "entryTime": "2026-09-23T19:54:04.521Z",
+      "exitTime": "2026-09-23T20:03:28.652Z"
+    },
+    {
+      "id": "9ad56238-a3c4-4319-879b-bc85a407b35b",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 7,
+      "plateNumber": "064NBGG77D",
+      "status": "vacated",
+      "entryTime": "2026-09-23T19:54:23.296Z",
+      "exitTime": "2026-09-23T20:00:24.134Z"
+    }
+  ],
+  "parkings": [
+    {
+      "id": "82ab611c-42e0-4e69-93d7-326dc6f2ee81",
+      "name": "Nandur naka parking",
+      "capacity": 50,
+      "vehicleType": "4-wheeler",
+      "lat": 19.99449384307371,
+      "lng": 73.84441673755647,
+      "createdAt": "2026-09-21T19:11:28.163Z"
+    },
+    {
+      "id": "a603ea79-09fa-4da7-977b-4a26c362ae7b",
+      "name": "test",
+      "capacity": 50,
+      "vehicleType": "4-wheeler",
+      "lat": 19.992671154747832,
+      "lng": 73.84430408477785,
+      "createdAt": "2026-09-23T18:59:47.476Z"
+    },
+    {
+      "id": "db2139dd-e171-47f6-8744-7858bdf716ce",
+      "name": "new parking",
+      "capacity": 100,
+      "vehicleType": "4-wheeler",
+      "lat": 19.997951907383708,
+      "lng": 73.8390066265418,
+      "createdAt": "2026-09-23T19:31:24.561Z"
+    }
+  ]
+}
