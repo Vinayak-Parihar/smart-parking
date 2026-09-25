@@ -7,13 +7,16 @@ const router = Router();
 const VEHICLE_TYPES = ['2-wheeler', '4-wheeler', 'both'];
 
 function validateParkingInput(body) {
-  const { name, capacity, vehicleType, lat, lng } = body;
+  const { name, capacity, vehicleType, lat, lng, reservedSpaces = 0 } = body;
 
   if (typeof name !== 'string' || !name.trim()) {
     return 'name is required';
   }
   if (!Number.isInteger(capacity) || capacity <= 0) {
     return 'capacity must be a positive integer';
+  }
+  if (!Number.isInteger(reservedSpaces) || reservedSpaces < 0 || reservedSpaces > capacity) {
+    return 'reservedSpaces must be a whole number between 0 and capacity';
   }
   if (!VEHICLE_TYPES.includes(vehicleType)) {
     return `vehicleType must be one of: ${VEHICLE_TYPES.join(', ')}`;
@@ -40,7 +43,7 @@ router.post('/parkings', async (req, res) => {
     return res.status(400).json({ error: validationError });
   }
 
-  const { name, capacity, vehicleType, lat, lng } = req.body;
+  const { name, capacity, vehicleType, lat, lng, reservedSpaces = 0 } = req.body;
 
   await db.read();
   const parking = {
@@ -67,7 +70,8 @@ router.post('/parkings', async (req, res) => {
     id: randomUUID(),
     zoneId: parking.id,
     name: `${parking.name} Lot`,
-    totalSpaces: capacity
+    totalSpaces: capacity,
+    reservedSpaces
   });
 
   await db.write();

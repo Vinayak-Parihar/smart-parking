@@ -1,0 +1,125 @@
+/* Kiosk display: dark background, high contrast, readable from distance. */
+
+.dash {
+  --dash-bg: oklch(16% 0.01 250);
+  --dash-text: oklch(98% 0 0);
+  --dash-muted: oklch(75% 0.01 250);
+  --dash-open: oklch(52% 0.15 150);
+  --dash-low: oklch(78% 0.17 80);
+  --dash-full: oklch(52% 0.21 25);
+
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  background: var(--dash-bg);
+  color: var(--dash-text);
+  padding: 2vw 3vw;
+  font-family: var(--font-display);
+}
+
+.dash::-webkit-scrollbar {
+  display: none;
+}
+
+.dash-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2vw;
+  margin-bottom: 2vw;
+}
+
+.dash-top h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 5rem);
+}
+
+.dash-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-label);
+  font-size: clamp(1.25rem, 2vw, 2.5rem);
+}
+
+.dash-updated {
+  font-size: 0.5em;
+  color: var(--dash-muted);
+}
+
+.dash-area {
+  margin: 2vw 0 1vw;
+  font-size: clamp(1.5rem, 2.5vw, 3rem);
+  color: var(--dash-muted);
+}
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(220px, 22vw, 480px), 1fr));
+  gap: 1.5vw;
+}
+
+.dash-card {
+  border-radius: 1vw;
+  padding: 1.5vw 2vw;
+  animation: dash-flash 1.2s ease-out;
+}
+
+.dash-card p {
+  margin: 0;
+}
+
+.dash-card.is-open {
+  background: var(--dash-open);
+}
+
+.dash-card.is-low {
+  background: var(--dash-low);
+  color: var(--dash-bg);
+}
+
+.dash-card.is-full {
+  background: var(--dash-full);
+}
+
+.dash-zone {
+  font-size: clamp(1.25rem, 2.2vw, 3rem);
+  font-weight: 700;
+}
+
+.dash-status {
+  font-size: clamp(2rem, 3.5vw, 5rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin: 0.5vw 0 !important;
+}
+
+.dash-count {
+  font-family: var(--font-label);
+  font-size: clamp(1rem, 1.6vw, 2.25rem);
+}
+
+.dash-empty {
+  font-size: clamp(1.5rem, 3vw, 4rem);
+  color: var(--dash-muted);
+  text-align: center;
+  margin-top: 20vh;
+}
+
+@keyframes dash-flash {
+  from {
+    box-shadow: 0 0 0 0.6vw var(--dash-text);
+    filter: brightness(1.5);
+  }
+  to {
+    box-shadow: 0 0 0 0 transparent;
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-card {
+    animation: none;
+  }
+}

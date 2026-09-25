@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import CameraCaptureModal from './CameraCaptureModal';
+import ZoneFullNotice from './ZoneFullNotice';
+import { useTranslation } from '../i18n';
 
 function ZoneDetail({
   zoneId,
@@ -11,15 +13,18 @@ function ZoneDetail({
   onScanEntry,
   onScanExit,
   isLoading,
-  message
+  message,
+  zoneFull
 }) {
+  const { t } = useTranslation();
   const [plateNumber, setPlateNumber] = useState('');
+  const [isPriority, setIsPriority] = useState(false);
   const [cameraAction, setCameraAction] = useState(null); // 'entry' | 'exit' | null
 
   if (!zoneId) {
     return (
       <div className="zone-detail empty-state">
-        <p className="muted">Select a zone on the left to see its lots and try a scan.</p>
+        <p className="muted">{t('selectZonePrompt')}</p>
       </div>
     );
   }
@@ -28,7 +33,7 @@ function ZoneDetail({
 
   const handleCapture = (file) => {
     if (cameraAction === 'entry') {
-      onScanEntry(file);
+      onScanEntry(file, isPriority);
     } else if (cameraAction === 'exit') {
       onScanExit(file);
     }
@@ -51,8 +56,8 @@ function ZoneDetail({
                     <div className="progress-fill" style={{ width: `${percentFull}%` }} />
                   </div>
                   <p>
-                    {lot.occupied} / {lot.totalSpaces} occupied &nbsp;
-                    <span className="available-badge">{lot.available} free</span>
+                    {t('occupiedOf', { occupied: lot.occupied, total: lot.totalSpaces })} &nbsp;
+                    <span className="available-badge">{t('free', { count: lot.available })}</span>
                   </p>
                 </div>
               );
@@ -60,24 +65,33 @@ function ZoneDetail({
           </div>
 
           <p className="total-summary">
-            Total available in this zone: <strong>{totalAvailable}</strong>
+            {t('totalAvailable')} <strong>{totalAvailable}</strong>
           </p>
 
           <div className="scan-panel">
-            <h3>ANPR Scan</h3>
+            <h3>{t('scan')}</h3>
+            <label className="priority-check">
+              <input
+                type="checkbox"
+                checked={isPriority}
+                onChange={(e) => setIsPriority(e.target.checked)}
+              />
+              {t('priorityCheckbox')}
+            </label>
             <div className="scan-buttons">
               <button className="btn" disabled={isLoading} onClick={() => setCameraAction('entry')}>
-                Scan at Entry
+                {t('scanAtEntry')}
               </button>
               <button
                 disabled={isLoading}
                 className="btn secondary"
                 onClick={() => setCameraAction('exit')}
               >
-                Scan at Exit
+                {t('scanAtExit')}
               </button>
             </div>
             {message && <p className="scan-message">{message}</p>}
+            {zoneFull && <ZoneFullNotice {...zoneFull} />}
           </div>
 
           {cameraAction && (
@@ -85,10 +99,10 @@ function ZoneDetail({
           )}
 
           <div className="scan-panel scan-panel-manual">
-            <h3>Manual Entry (fallback / testing)</h3>
+            <h3>{t('manualEntryTitle')}</h3>
             <input
               type="text"
-              placeholder="Enter plate number e.g. MH12AB1234"
+              placeholder={t('platePlaceholder')}
               value={plateNumber}
               onChange={(e) => setPlateNumber(e.target.value.toUpperCase())}
             />
@@ -96,31 +110,31 @@ function ZoneDetail({
               <button
                 className="btn"
                 disabled={!plateNumber || isLoading}
-                onClick={() => onAllocate(plateNumber)}
+                onClick={() => onAllocate(plateNumber, isPriority)}
               >
-                Allocate
+                {t('allocate')}
               </button>
               <button
                 disabled={!plateNumber || isLoading}
                 className="btn secondary"
                 onClick={() => onUnallocate(plateNumber)}
               >
-                Unallocate
+                {t('unallocate')}
               </button>
             </div>
           </div>
         </div>
 
         <div className="parked-vehicles">
-          <h3>Parked Vehicles ({allocations.length})</h3>
-          {allocations.length === 0 && <p className="muted">No vehicles currently parked in this zone.</p>}
+          <h3>{t('parkedVehicles', { count: allocations.length })}</h3>
+          {allocations.length === 0 && <p className="muted">{t('noVehiclesParked')}</p>}
           <ul>
             {allocations.map((allocation) => (
               <li key={allocation.id} className="parked-vehicle-item">
                 <div>
                   <span className="zone-name">{allocation.plateNumber}</span>
                   <span className="zone-coords">
-                    {allocation.lotName} &middot; Space #{allocation.spaceNumber}
+                    {allocation.lotName} &middot; {t('spaceLabel', { space: allocation.spaceNumber })}
                   </span>
                 </div>
                 <button
@@ -128,7 +142,7 @@ function ZoneDetail({
                   disabled={isLoading}
                   onClick={() => onUnallocate(allocation.plateNumber)}
                 >
-                  Unallocate
+                  {t('unallocate')}
                 </button>
               </li>
             ))}

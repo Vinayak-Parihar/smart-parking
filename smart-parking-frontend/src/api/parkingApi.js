@@ -3,7 +3,11 @@ const BASE_URL = 'http://localhost:4000/api';
 async function handleResponse(res) {
   const data = await res.json();
   if (!res.ok) {
-    throw new Error(data.error || 'Request failed');
+    // keep status + body so callers can react to e.g. zoneFull / suggestedZone
+    const err = new Error(data.error || 'Request failed');
+    err.status = res.status;
+    err.data = data;
+    throw err;
   }
   return data;
 }
@@ -23,11 +27,11 @@ export async function getZoneAllocations(zoneId) {
   return handleResponse(res);
 }
 
-export async function allocateSpace(zoneId, plateNumber) {
+export async function allocateSpace(zoneId, plateNumber, isPriority = false) {
   const res = await fetch(`${BASE_URL}/zones/${zoneId}/allocate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ plateNumber })
+    body: JSON.stringify({ plateNumber, isPriority })
   });
   return handleResponse(res);
 }
@@ -41,9 +45,10 @@ export async function unallocateSpace(zoneId, plateNumber) {
   return handleResponse(res);
 }
 
-export async function scanEntry(zoneId, imageFile) {
+export async function scanEntry(zoneId, imageFile, isPriority = false) {
   const formData = new FormData();
   formData.append('image', imageFile);
+  formData.append('isPriority', String(isPriority));
   const res = await fetch(`${BASE_URL}/zones/${zoneId}/scan-entry`, {
     method: 'POST',
     body: formData
@@ -58,5 +63,20 @@ export async function scanExit(zoneId, imageFile) {
     method: 'POST',
     body: formData
   });
+  return handleResponse(res);
+}
+
+// 404 is a normal "not parked" answer here, so return it instead of throwing.
+export async function findMyCar(plateNumber) {
+  const res = await fetch(`${BASE_URL}/find-my-car?plateNumber=${encodeURIComponent(plateNumber)}`);
+  const data = await res.json();
+  if (!res.ok && res.status !== 404) {
+    throw new Error(data.error || 'Request failed');
+  }
+  return data;
+}
+
+export async function getDashboardOccupancy() {
+  const res = await fetch(`${BASE_URL}/dashboard/occupancy`);
   return handleResponse(res);
 }

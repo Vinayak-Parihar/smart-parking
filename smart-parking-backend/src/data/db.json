@@ -34,6 +34,13 @@
       "name": "new parking",
       "lat": 19.997951907383708,
       "lng": 73.8390066265418
+    },
+    {
+      "id": "89bef77c-f10e-4fc9-9967-aaccd831e50d",
+      "areaId": "admin-added",
+      "name": "the new park",
+      "lat": 19.992288521850263,
+      "lng": 73.82263183593751
     }
   ],
   "lots": [
@@ -66,6 +73,12 @@
       "zoneId": "db2139dd-e171-47f6-8744-7858bdf716ce",
       "name": "new parking Lot",
       "totalSpaces": 100
+    },
+    {
+      "id": "06c32ba8-e94f-4749-8192-92b73cc12fd6",
+      "zoneId": "89bef77c-f10e-4fc9-9967-aaccd831e50d",
+      "name": "the new park Lot",
+      "totalSpaces": 1
     }
   ],
   "allocations": [
@@ -188,6 +201,79 @@
       "status": "vacated",
       "entryTime": "2026-09-23T19:54:23.296Z",
       "exitTime": "2026-09-23T20:00:24.134Z"
+    },
+    {
+      "id": "cc7c0ade-10cb-43b5-b03f-aef1d7dbeea8",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 1,
+      "plateNumber": "",
+      "status": "occupied",
+      "entryTime": "2026-09-24T18:38:10.196Z",
+      "exitTime": null
+    },
+    {
+      "id": "67194b07-ac60-44f8-bac7-bb4e33a0709f",
+      "lotId": "9e6d3f2a-2f0e-4c1a-9b7e-9a2f7a5b9d03",
+      "zoneId": "db2139dd-e171-47f6-8744-7858bdf716ce",
+      "spaceNumber": 1,
+      "plateNumber": "HH15HN92",
+      "status": "vacated",
+      "entryTime": "2026-09-24T18:39:07.558Z",
+      "exitTime": "2026-09-25T12:12:50.043Z"
+    },
+    {
+      "id": "f94b975b-d2ae-48a6-91f3-5bbb90f8dfff",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 2,
+      "plateNumber": "MH15HN7922",
+      "status": "vacated",
+      "entryTime": "2026-09-24T18:40:32.078Z",
+      "exitTime": "2026-09-25T12:12:57.242Z"
+    },
+    {
+      "id": "c6235f10-a53a-46c7-90f3-fe1634d01fdd",
+      "lotId": "06c32ba8-e94f-4749-8192-92b73cc12fd6",
+      "zoneId": "89bef77c-f10e-4fc9-9967-aaccd831e50d",
+      "spaceNumber": 1,
+      "plateNumber": "MH15MH7922",
+      "status": "occupied",
+      "entryTime": "2026-09-25T12:14:58.288Z",
+      "exitTime": null
+    },
+    {
+      "id": "21935462-94cb-43fe-922c-f395d322826f",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 2,
+      "plateNumber": "MH15HN7922",
+      "status": "vacated",
+      "isPriorityAllocation": false,
+      "entryTime": "2026-09-25T12:35:12.620Z",
+      "exitTime": "2026-09-25T12:35:29.590Z"
+    },
+    {
+      "id": "a052c4bf-3b33-4656-bdfa-8af3163b2a2f",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 2,
+      "plateNumber": "MH15HN7922",
+      "status": "vacated",
+      "isPriorityAllocation": false,
+      "entryTime": "2026-09-25T12:35:44.998Z",
+      "exitTime": "2026-09-25T12:36:01.725Z"
+    },
+    {
+      "id": "390b9119-fb7b-44da-a5d9-42d3fa7029fe",
+      "lotId": "l1",
+      "zoneId": "z1",
+      "spaceNumber": 2,
+      "plateNumber": "MH15HN7922",
+      "status": "vacated",
+      "isPriorityAllocation": false,
+      "entryTime": "2026-09-25T12:36:05.607Z",
+      "exitTime": "2026-09-25T12:36:40.127Z"
     }
   ],
   "parkings": [
@@ -217,6 +303,15 @@
       "lat": 19.997951907383708,
       "lng": 73.8390066265418,
       "createdAt": "2026-09-23T19:31:24.561Z"
+    },
+    {
+      "id": "89bef77c-f10e-4fc9-9967-aaccd831e50d",
+      "name": "the new park",
+      "capacity": 1,
+      "vehicleType": "2-wheeler",
+      "lat": 19.992288521850263,
+      "lng": 73.82263183593751,
+      "createdAt": "2026-09-25T12:14:28.697Z"
     }
   ]
 }

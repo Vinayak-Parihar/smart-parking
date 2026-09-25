@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from '../i18n';
 
 function CameraCaptureModal({ onCapture, onCancel }) {
+  const { t } = useTranslation();
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const [error, setError] = useState('');
@@ -20,10 +22,10 @@ function CameraCaptureModal({ onCapture, onCancel }) {
           videoRef.current.srcObject = stream;
         }
       })
-      .catch((err) => setError(err.message || 'Could not access the camera.'));
+      .catch((err) => setError(err.message || t('cameraFailed')));
 
     if (!navigator.mediaDevices) {
-      setError('Camera access is not supported in this browser.');
+      setError(t('cameraUnsupported'));
     }
 
     return () => {
@@ -54,10 +56,10 @@ function CameraCaptureModal({ onCapture, onCancel }) {
   return (
     <div className="modal-overlay" onClick={onCancel}>
       <div className="modal-panel" onClick={(e) => e.stopPropagation()}>
-        <h3>Scan plate</h3>
+        <h3>{t('scanPlate')}</h3>
 
         {error ? (
-          <p className="parking-form-error">{error} Check camera permissions and try again.</p>
+          <p className="parking-form-error">{error} {t('cameraCheck')}</p>
         ) : (
           <div className="camera-preview-wrap">
             <video ref={videoRef} autoPlay playsInline muted />
@@ -66,10 +68,10 @@ function CameraCaptureModal({ onCapture, onCancel }) {
 
         <div className="scan-buttons">
           <button type="button" className="btn" disabled={!!error} onClick={handleCapture}>
-            Capture
+            {t('capture')}
           </button>
           <button type="button" className="btn secondary" onClick={onCancel}>
-            Cancel
+            {t('cancel')}
           </button>
         </div>
       </div>

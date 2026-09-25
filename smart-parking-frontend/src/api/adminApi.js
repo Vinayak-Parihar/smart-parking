@@ -13,11 +13,11 @@ export async function getParkings() {
   return handleResponse(res);
 }
 
-export async function createParking({ name, capacity, vehicleType, lat, lng }) {
+export async function createParking({ name, capacity, reservedSpaces, vehicleType, lat, lng }) {
   const res = await fetch(`${BASE_URL}/parkings`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, capacity, vehicleType, lat, lng })
+    body: JSON.stringify({ name, capacity, reservedSpaces, vehicleType, lat, lng })
   });
   return handleResponse(res);
 }

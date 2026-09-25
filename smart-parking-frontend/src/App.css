@@ -337,3 +337,149 @@
     transform: none !important;
   }
 }
+
+/* --- Find My Car --- */
+
+.find-my-car {
+  padding: var(--space-md) var(--page-gutter);
+  display: grid;
+  gap: var(--space-md);
+  max-width: 640px;
+}
+
+.car-card {
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-card);
+  padding: var(--space-md);
+}
+
+.car-card p {
+  margin: 0 0 var(--space-xs);
+}
+
+.car-space {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-accent-deep);
+}
+
+.lot-map {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12px, 1fr));
+  gap: 3px;
+  margin-top: var(--space-sm);
+}
+
+.lot-map span {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--color-paper-3);
+}
+
+.lot-map span.is-mine {
+  background: var(--color-accent);
+  outline: 2px solid var(--color-accent-deep);
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- Header actions + language toggle --- */
+
+.app-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.lang-toggle {
+  display: inline-flex;
+  border: 1.5px solid var(--color-rule);
+  border-radius: var(--radius-input);
+  overflow: hidden;
+}
+
+.lang-toggle button {
+  padding: 0.4rem 0.6rem;
+  border: 0;
+  background: var(--color-paper);
+  color: var(--color-ink-70);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.lang-toggle button.is-active {
+  background: var(--color-accent);
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.lang-toggle button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+/* --- Priority parking --- */
+
+.priority-check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-bottom: var(--space-sm);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.scan-panel .priority-check input {
+  width: auto;
+  margin: 0;
+}
+
+.priority-badge {
+  display: inline-block;
+  margin-bottom: var(--space-xs);
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--color-accent-2) 18%, var(--color-paper));
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+/* --- Zone-full redirect (a suggestion, not a failure) --- */
+
+.zone-suggest {
+  display: flex;
+  gap: var(--space-2xs);
+  align-items: flex-start;
+  margin: var(--space-sm) 0 0;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-input);
+  background: color-mix(in oklch, var(--color-accent-2) 14%, var(--color-paper));
+  border: 1.5px solid var(--color-accent-2);
+  font-size: var(--text-sm);
+}
+
+.zone-suggest-arrow {
+  color: var(--color-accent-2);
+  font-weight: 700;
+}
+
+/* --- Staff tools --- */
+
+.staff-select {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  margin-bottom: var(--space-sm);
+  background: var(--color-paper);
+  border: 1.5px solid var(--color-rule);
+  border-radius: var(--radius-input);
+  color: var(--color-ink);
+  font-size: var(--text-md);
+}

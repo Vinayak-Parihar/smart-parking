@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { LanguageToggle, useTranslation } from './i18n';
 import './LandingPage.css';
 
 function LandingPage() {
+  const { t } = useTranslation();
   return (
     <div className="landing">
       <nav className="landing-nav">
@@ -11,27 +13,30 @@ function LandingPage() {
           </span>
           Smart Parking
         </Link>
-        <Link to="/app" className="btn landing-nav-cta">
-          Open App
-        </Link>
+        <div className="app-header-actions">
+          <LanguageToggle />
+          <Link to="/app" className="btn landing-nav-cta">
+            {t('openApp')}
+          </Link>
+        </div>
       </nav>
 
       <header className="landing-hero">
         <div className="landing-hero-copy">
           <h1 className="landing-headline">
-            Drive in. A space <em className="hl">finds</em> you.
+            {t('heroA')}
+            <em className="hl">{t('heroEm')}</em>
+            {t('heroB')}
           </h1>
           <p className="landing-subhead">
-            A camera reads your plate at the gate and assigns a space before
-            you've parked. Leave, and it's free for the next car — tracked
-            live, zone by zone.
+            {t('heroSub')}
           </p>
           <div className="landing-actions">
             <Link to="/app" className="btn">
-              Find a Spot
+              {t('findSpot')}
             </Link>
             <Link to="/map" className="btn secondary">
-              View Parking Map
+              {t('viewMap')}
             </Link>
           </div>
         </div>
@@ -40,7 +45,7 @@ function LandingPage() {
           <div className="landing-blob">
             <span>P</span>
           </div>
-          <div className="landing-note">No ticket machines. No guessing.</div>
+          <div className="landing-note">{t('heroNote')}</div>
         </div>
       </header>
 
@@ -50,30 +55,25 @@ function LandingPage() {
             <span className="feature-scan-plate">MH12 AB1234</span>
             <span className="feature-scan-beam" />
           </div>
-          <h2>Automatic plate recognition</h2>
-          <p>
-            Entry and exit cameras read the plate and allocate or release a
-            space automatically — no ticket, no attendant queue.
-          </p>
+          <h2>{t('featAnprTitle')}</h2>
+          <p>{t('featAnprBody')}</p>
         </article>
 
         <article className="feature-tile">
-          <span className="feature-tag">LIVE</span>
-          <h2>Live occupancy</h2>
-          <p>Every lot updates over a socket connection the moment a space fills or frees up.</p>
+          <span className="feature-tag">{t('tagLive')}</span>
+          <h2>{t('featLiveTitle')}</h2>
+          <p>{t('featLiveBody')}</p>
         </article>
 
         <article className="feature-tile">
-          <span className="feature-tag">ZONES</span>
-          <h2>Zone-based layout</h2>
-          <p>Pick a zone first, then see exactly which lots inside it still have room.</p>
+          <span className="feature-tag">{t('tagZones')}</span>
+          <h2>{t('featZonesTitle')}</h2>
+          <p>{t('featZonesBody')}</p>
         </article>
       </main>
 
       <footer className="landing-footer">
-        <p className="landing-footer-line">
-          Park in seconds. Leave — it's already free for the next car.
-        </p>
+        <p className="landing-footer-line">{t('footerLine')}</p>
         <div className="landing-footer-meta">
           <span className="landing-wordmark landing-wordmark--small">
             <span className="landing-mark" aria-hidden="true">
@@ -81,7 +81,7 @@ function LandingPage() {
             </span>
             Smart Parking
           </span>
-          <span className="muted">Built on ANPR + real-time occupancy tracking.</span>
+          <span className="muted">{t('footerMeta')}</span>
         </div>
       </footer>
     </div>

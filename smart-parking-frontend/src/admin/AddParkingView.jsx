@@ -4,6 +4,7 @@ import LocationPickerModal from './LocationPickerModal';
 function AddParkingView({ parkings, onSubmit, isSaving }) {
   const [name, setName] = useState('');
   const [capacity, setCapacity] = useState('');
+  const [reservedSpaces, setReservedSpaces] = useState('');
   const [vehicleType, setVehicleType] = useState('both');
   const [position, setPosition] = useState(null);
   const [formError, setFormError] = useState('');
@@ -21,6 +22,11 @@ function AddParkingView({ parkings, onSubmit, isSaving }) {
       setFormError('Capacity must be a positive whole number.');
       return;
     }
+    const reservedNumber = Number(reservedSpaces || 0);
+    if (!Number.isInteger(reservedNumber) || reservedNumber < 0 || reservedNumber > capacityNumber) {
+      setFormError('Reserved spaces must be a whole number no larger than capacity.');
+      return;
+    }
     if (!position) {
       setFormError('Choose the parking location on the map.');
       return;
@@ -30,6 +36,7 @@ function AddParkingView({ parkings, onSubmit, isSaving }) {
     const ok = await onSubmit({
       name: name.trim(),
       capacity: capacityNumber,
+      reservedSpaces: reservedNumber,
       vehicleType,
       lat: position.lat,
       lng: position.lng
@@ -38,6 +45,7 @@ function AddParkingView({ parkings, onSubmit, isSaving }) {
     if (ok) {
       setName('');
       setCapacity('');
+      setReservedSpaces('');
       setVehicleType('both');
       setPosition(null);
     }
@@ -66,6 +74,18 @@ function AddParkingView({ parkings, onSubmit, isSaving }) {
             value={capacity}
             onChange={(e) => setCapacity(e.target.value)}
             placeholder="e.g. 50"
+          />
+        </label>
+
+        <label>
+          Priority/accessible spaces (reserved)
+          <input
+            type="number"
+            min="0"
+            max={capacity || undefined}
+            value={reservedSpaces}
+            onChange={(e) => setReservedSpaces(e.target.value)}
+            placeholder="e.g. 5 (optional)"
           />
         </label>
 

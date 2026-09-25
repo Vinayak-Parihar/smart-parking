@@ -1,8 +1,11 @@
+import { useTranslation } from '../i18n';
+
 function ZoneList({ zones, selectedZoneId, onSelectZone }) {
+  const { t } = useTranslation();
   return (
     <div className="zone-list">
-      <h2>Nearby Zones</h2>
-      {zones.length === 0 && <p className="muted">No zones found nearby.</p>}
+      <h2>{t('nearbyZones')}</h2>
+      {zones.length === 0 && <p className="muted">{t('noZonesNearby')}</p>}
       <ul>
         {zones.map((zone) => (
           <li
