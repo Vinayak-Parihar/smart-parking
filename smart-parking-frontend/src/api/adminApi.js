@@ -1,4 +1,6 @@
-const BASE_URL = 'http://localhost:4000/api';
+import { staffHeaders } from './parkingApi';
+
+const BASE_URL = '/api';
 
 async function handleResponse(res) {
   const data = await res.json();
@@ -16,7 +18,7 @@ export async function getParkings() {
 export async function createParking({ name, capacity, reservedSpaces, vehicleType, lat, lng }) {
   const res = await fetch(`${BASE_URL}/parkings`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...staffHeaders() },
     body: JSON.stringify({ name, capacity, reservedSpaces, vehicleType, lat, lng })
   });
   return handleResponse(res);

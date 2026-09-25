@@ -2,6 +2,7 @@ import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import fs from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dbFile = process.env.DB_FILE || path.join(__dirname, 'db.json');
@@ -23,6 +24,8 @@ const adapter = new JSONFile(dbFile);
 const db = new Low(adapter, defaultData);
 
 export async function initDb() {
+  // DB_FILE may point at a folder that doesn't exist yet (e.g. first deploy)
+  fs.mkdirSync(path.dirname(dbFile), { recursive: true });
   await db.read();
   // if db.json didn't exist, db.data will be null -> seed it
   db.data ||= defaultData;

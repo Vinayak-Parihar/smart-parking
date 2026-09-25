@@ -11,6 +11,7 @@ import {
   suggestAlternativeZone
 } from '../services/allocationService.js';
 import { scanPlate } from '../services/anprClient.js';
+import { requireStaff } from '../requireStaff.js';
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -41,7 +42,7 @@ router.get('/zones/:id/lots', async (req, res) => {
 });
 
 // GET /zones/:id/allocations - currently parked vehicles in the zone
-router.get('/zones/:id/allocations', async (req, res) => {
+router.get('/zones/:id/allocations', requireStaff, async (req, res) => {
   try {
     const allocations = await getZoneAllocations(req.params.id);
     res.json(allocations);
@@ -70,7 +71,7 @@ router.get('/find-my-car', async (req, res) => {
 
 // ---- Manual plate entry (kept for quick testing without a camera) ----
 
-router.post('/zones/:id/allocate', async (req, res) => {
+router.post('/zones/:id/allocate', requireStaff, async (req, res) => {
   const { plateNumber, isPriority } = req.body;
   if (!plateNumber) {
     return res.status(400).json({ error: 'plateNumber is required' });
@@ -86,7 +87,7 @@ router.post('/zones/:id/allocate', async (req, res) => {
   }
 });
 
-router.post('/zones/:id/unallocate', async (req, res) => {
+router.post('/zones/:id/unallocate', requireStaff, async (req, res) => {
   const { plateNumber } = req.body;
   if (!plateNumber) {
     return res.status(400).json({ error: 'plateNumber is required' });

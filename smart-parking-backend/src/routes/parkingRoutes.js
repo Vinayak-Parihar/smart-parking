@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { randomUUID } from 'crypto';
 import db from '../data/db.js';
+import { requireStaff } from '../requireStaff.js';
 
 const router = Router();
 
@@ -37,7 +38,7 @@ router.get('/parkings', async (req, res) => {
 });
 
 // POST /api/parkings - add a new parking location (admin map pin + form)
-router.post('/parkings', async (req, res) => {
+router.post('/parkings', requireStaff, async (req, res) => {
   const validationError = validateParkingInput(req.body);
   if (validationError) {
     return res.status(400).json({ error: validationError });

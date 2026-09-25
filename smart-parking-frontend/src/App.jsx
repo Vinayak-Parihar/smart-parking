@@ -32,7 +32,10 @@ function App() {
   const refreshLots = useCallback((zoneId) => {
     if (!zoneId) return;
     getZoneLots(zoneId).then(setLots).catch((err) => setMessage(err.message));
-    getZoneAllocations(zoneId).then(setAllocations).catch((err) => setMessage(err.message));
+    getZoneAllocations(zoneId)
+      .then(setAllocations)
+      // plate list is staff-only when a PIN is set; drivers just don't see it
+      .catch((err) => (err.status === 401 ? setAllocations([]) : setMessage(err.message)));
   }, []);
 
   useEffect(() => {

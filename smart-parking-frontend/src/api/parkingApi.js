@@ -1,4 +1,27 @@
-const BASE_URL = 'http://localhost:4000/api';
+const BASE_URL = '/api';
+
+// Staff PIN (only needed when the backend has STAFF_PIN set). Kept for this tab only.
+export function saveStaffPin(pin) {
+  try {
+    sessionStorage.setItem('staffPin', pin);
+  } catch {
+    // storage blocked: PIN won't be remembered
+  }
+}
+
+export function staffHeaders() {
+  try {
+    const pin = sessionStorage.getItem('staffPin');
+    return pin ? { 'x-staff-pin': pin } : {};
+  } catch {
+    return {};
+  }
+}
+
+export async function checkStaffPin() {
+  const res = await fetch(`${BASE_URL}/staff/check`, { headers: staffHeaders() });
+  return res.ok;
+}
 
 async function handleResponse(res) {
   const data = await res.json();
@@ -23,14 +46,14 @@ export async function getZoneLots(zoneId) {
 }
 
 export async function getZoneAllocations(zoneId) {
-  const res = await fetch(`${BASE_URL}/zones/${zoneId}/allocations`);
+  const res = await fetch(`${BASE_URL}/zones/${zoneId}/allocations`, { headers: staffHeaders() });
   return handleResponse(res);
 }
 
 export async function allocateSpace(zoneId, plateNumber, isPriority = false) {
   const res = await fetch(`${BASE_URL}/zones/${zoneId}/allocate`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...staffHeaders() },
     body: JSON.stringify({ plateNumber, isPriority })
   });
   return handleResponse(res);
@@ -39,7 +62,7 @@ export async function allocateSpace(zoneId, plateNumber, isPriority = false) {
 export async function unallocateSpace(zoneId, plateNumber) {
   const res = await fetch(`${BASE_URL}/zones/${zoneId}/unallocate`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...staffHeaders() },
     body: JSON.stringify({ plateNumber })
   });
   return handleResponse(res);

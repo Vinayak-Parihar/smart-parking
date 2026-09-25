@@ -152,7 +152,7 @@ Open these in the browser while the backend and frontend are running:
 | http://localhost:5173/staff/override | Manually allocate or free a space when a scan fails | Staff |
 | http://localhost:5173/admin | Add new parking locations | Admin |
 
-The staff pages are not linked from anywhere in the app. Share their URLs only with staff.
+The staff pages are not linked from anywhere in the app. Share their URLs only with staff. When the backend has `STAFF_PIN` set (see section 7), the staff pages and `/admin` ask for that PIN first. Without it, locally, they open directly.
 
 The language toggle (EN / मरा / हिं) is in the header of the driver pages.
 
@@ -194,9 +194,10 @@ Expected output: `allocation checks passed`
 | `PORT` | Backend environment variable | `4000` | Backend port |
 | `ANPR_SERVICE_URL` | Backend environment variable | `http://localhost:5001` | Where the backend finds the ANPR service |
 | `DB_FILE` | Backend environment variable | `src/data/db.json` | Use a different data file |
+| `STAFF_PIN` | Backend environment variable | not set (no PIN) | When set, the staff pages, `/admin`, manual allocate/unallocate and the parked-plates list all require this PIN. **Always set it on a public deployment.** Use a long passphrase, not a 4-digit number. |
 | `ALLOW_RESERVED_SPILLOVER` | `smart-parking-backend/src/services/allocationService.js` | `true` | Whether normal vehicles may use priority spaces once general spaces are full |
 
-The frontend expects the backend at `http://localhost:4000`. That address is written in `src/api/parkingApi.js`, `src/api/adminApi.js` and `src/hooks/useOccupancySocket.js`. If you change the backend `PORT`, update those three files too.
+The frontend calls the backend on the same address it was opened from (`/api`). In development, Vite forwards those calls to `http://localhost:4000` (see `smart-parking-frontend/vite.config.js`). If you change the backend `PORT` for local development, update that file too.
 
 Setting an environment variable for one run in PowerShell:
 
@@ -206,7 +207,61 @@ $env:ANPR_SERVICE_URL = "http://192.168.1.20:5001"; npm run dev
 
 ---
 
-## 8. Troubleshooting
+## 8. Deploy on Hostinger (Node.js Web App)
+
+In production the backend also serves the built frontend, so the whole project runs as **one Node.js app on one URL**. The repo root `package.json` and `server.js` exist for this.
+
+### What works on Hostinger Web App hosting
+
+| Feature | Works? |
+|---|---|
+| All pages, manual entry, Find My Car, staff tools, admin, languages | ✅ Yes |
+| Live updates (dashboard, zone screen) | ✅ Yes, but a bit slower. Hostinger's Web/Cloud plans block incoming WebSockets, so Socket.io falls back to HTTP polling. The dashboard also refreshes every 30 seconds on its own. |
+| Camera scan (ANPR) | ❌ No. The ANPR service is Python, and Web App hosting only runs Node.js. Use manual entry / staff override, or run ANPR on a VPS (see below). |
+
+**Plan needed:** a **Business** web hosting plan or any **Cloud** plan. Single/Premium plans don't support Node.js apps.
+
+### Steps
+
+1. Push the latest code to GitHub.
+2. In **hPanel → Websites → Add Website → Node.js Apps**, choose **Import Git Repository** and connect `smart-parking`.
+3. Fill in the settings:
+
+   | Setting | Value |
+   |---|---|
+   | Framework preset | Express (or "Other") |
+   | Branch | `main` |
+   | Node.js version | 22 |
+   | Build command | `npm run build` |
+   | Entry file | `server.js` |
+   | Package manager | npm |
+
+4. Add the **environment variables**:
+
+   | Name | Value |
+   |---|---|
+   | `STAFF_PIN` | a long passphrase that only staff know |
+   | `DB_FILE` | `/home/<your-hostinger-user>/smart-parking-data/db.json` |
+
+   **`DB_FILE` is required.** Hostinger overwrites the app folder on every deploy, and with GitHub connected that means every push. If the data file lives inside the app folder, all parkings and allocations are wiped on each push. Your Hostinger username (starting with `u`) is shown in hPanel under the SSH / File Manager details. The folder is created automatically on first start.
+
+5. Click **Deploy**. When it finishes, open your domain. Test `/app` (manual allocate), `/my-car`, `/dashboard` and `/staff/override` (it should ask for the PIN).
+
+### Keeping your current data
+
+On first start the app creates a fresh data file with the two default zones. To keep the data you have locally instead, upload `smart-parking-backend/src/data/db.json` with File Manager to the `DB_FILE` path **before** the first deploy (or restart the app after uploading).
+
+### Updating later
+
+Push to `main`. Hostinger rebuilds and redeploys automatically, and your data stays safe in `DB_FILE`.
+
+### Want camera scanning too?
+
+Get a Hostinger **VPS** (KVM 2 or higher, about 2 GB RAM) and run the ANPR service there with the section 2.3 / 3 commands. Then set `ANPR_SERVICE_URL` on the web app to `http://<vps-ip>:5001`. The VPS can also host the whole project on its own if you'd rather have everything in one place.
+
+---
+
+## 9. Troubleshooting
 
 | Problem | Fix |
 |---|---|

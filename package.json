@@ -1,0 +1,13 @@
+{
+  "name": "smart-parking",
+  "private": true,
+  "type": "module",
+  "description": "Hostinger entry point: builds the frontend and runs the backend, which serves it.",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "build": "npm install --prefix smart-parking-backend && npm install --include=dev --prefix smart-parking-frontend && npm run build --prefix smart-parking-frontend",
+    "start": "node server.js"
+  }
+}
